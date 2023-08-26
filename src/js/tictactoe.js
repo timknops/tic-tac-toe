@@ -18,9 +18,27 @@ const gameController = (() => {
   let currentRound = 1;
   let currentPlayerSymbol = player1.getSymbol();
 
+  const playRound = () => {
+    currentPlayerSymbol =
+      currentPlayerSymbol === player1.getSymbol()
+        ? player2.getSymbol()
+        : player1.getSymbol();
+
+    currentRound++;
+  };
+
+  const getCurrentRound = () => {
+    return currentRound;
+  };
+
+  const getCurrentPlayerSymbol = () => {
+    return currentPlayerSymbol;
+  };
+
   return {
-    currentRound,
-    currentPlayerSymbol,
+    getCurrentRound,
+    getCurrentPlayerSymbol,
+    playRound,
   };
 })();
 
@@ -32,6 +50,7 @@ const displayController = (() => {
     field.addEventListener("click", () => {
       if (!field.hasChildNodes()) {
         field.appendChild(createPlayerIcon());
+        gameController.playRound();
       }
     });
   });
@@ -40,9 +59,9 @@ const displayController = (() => {
     const node = document.createElement("i");
     node.classList.add(
       "fa-solid",
-      `fa-${gameController.currentPlayerSymbol.toLowerCase()}`,
+      `fa-${gameController.getCurrentPlayerSymbol().toLowerCase()}`,
       "fa-10x",
-      gameController.currentPlayerSymbol === "X"
+      gameController.getCurrentPlayerSymbol() === "X"
         ? playerColors[0]
         : playerColors[1]
     );
