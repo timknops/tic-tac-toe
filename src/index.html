@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../dist/output.css" />
     <script type="module" src="./js/tictactoe.js" defer></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -17,17 +24,46 @@
     class="bg-gray-900 text-gray-200 w-screen h-screen flex flex-col items-center justify-center"
   >
     <h1 class="text-6xl text-center font-extrabold">TicTacToe</h1>
-    <p class="font-medium text-2xl mt-5 text-gray-400">ICON Turn</p>
-    <div class="board bg-gray-200 grid grid-cols-3 grid-rows-3 mt-5 rounded-lg">
-      <div class="board-field"></div>
-      <div class="board-field"></div>
-      <div class="board-field"></div>
-      <div class="board-field"></div>
-      <div class="board-field"></div>
-      <div class="board-field"></div>
-      <div class="board-field"></div>
-      <div class="board-field"></div>
-      <div class="board-field"></div>
+    <p
+      class="font-medium text-2xl mt-5 text-gray-400 bg-gray-700 px-4 py-2 rounded-lg"
+    >
+      <i class="fa-solid fa-o mr-2 text-amber-500"></i> TURN
+    </p>
+    <div
+      class="board bg-gray-700 grid grid-cols-3 grid-rows-3 mt-5 rounded-lg shadow-2xl shadow-gray-800 gap-3 p-3"
+    >
+      <div
+        class="board-field bg-gray-600 rounded-lg flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+      ></div>
+      <div
+        class="board-field bg-gray-600 rounded-lg flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+      ></div>
+      <div
+        class="board-field bg-gray-600 rounded-lg flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+      ></div>
+      <div
+        class="board-field bg-gray-600 rounded-lg flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+      ></div>
+      <div
+        class="board-field bg-gray-600 rounded-lg flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+      ></div>
+      <div
+        class="board-field bg-gray-600 rounded-lg flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+      ></div>
+      <div
+        class="board-field bg-gray-600 rounded-lg flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+      ></div>
+      <div
+        class="board-field bg-gray-600 rounded-lg flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+      ></div>
+      <div
+        class="board-field bg-gray-600 rounded-lg flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+      ></div>
     </div>
   </body>
 </html>
+
+<!-- 
+  <i class="fa-solid fa-x fa-10x text-emerald-500"></i>
+  <i class="fa-solid fa-o fa-10x text-amber-500"></i> 
+-->
