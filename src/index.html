@@ -5,7 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../dist/output.css" />
     <script type="module" src="./js/tictactoe.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
     <title>Tic-Tac-Toe</title>
   </head>
-  <body></body>
+  <body
+    class="bg-gray-900 text-gray-200 w-screen h-screen flex flex-col items-center justify-center"
+  >
+    <h1 class="text-6xl text-center font-extrabold">TicTacToe</h1>
+    <p class="font-medium text-2xl mt-5 text-gray-400">ICON Turn</p>
+    <div class="board bg-gray-200 grid grid-cols-3 grid-rows-3 mt-5 rounded-lg">
+      <div class="board-field"></div>
+      <div class="board-field"></div>
+      <div class="board-field"></div>
+      <div class="board-field"></div>
+      <div class="board-field"></div>
+      <div class="board-field"></div>
+      <div class="board-field"></div>
+      <div class="board-field"></div>
+      <div class="board-field"></div>
+    </div>
+  </body>
 </html>
