@@ -609,6 +609,11 @@ video {
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
 }
 
+.bg-gray-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+}
+
 .p-3 {
   padding: 0.75rem;
 }
@@ -643,6 +648,10 @@ video {
 
 .font-medium {
   font-weight: 500;
+}
+
+.font-bold {
+  font-weight: 700;
 }
 
 .text-amber-500 {
@@ -683,16 +692,19 @@ video {
 
 .board-field > i {
   transform: scale(1);
-  animation: zoomin 0.5s;
+  animation: zoomin 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  display: block;
 }
 
 @keyframes zoomin {
   0% {
     transform: scale(0);
+    opacity: 0;
   }
 
   100% {
     transform: scale(1);
+    opacity: 1;
   }
 }
 

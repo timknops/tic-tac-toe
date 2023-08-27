@@ -24,19 +24,69 @@ const gameController = (() => {
   const player1 = Player("X");
   const player2 = Player("O");
   let currentRound = 1;
-  let currentMove = 1;
+  let currentMove = 0;
   let currentPlayerSymbol = player1.getSymbol();
+  let isRoundEnd = false;
 
   const playMove = (position) => {
     gameBoard.setField(position - 1, currentPlayerSymbol);
+    currentMove++;
 
     currentPlayerSymbol =
       currentPlayerSymbol === player1.getSymbol()
         ? player2.getSymbol()
         : player1.getSymbol();
 
-    currentMove++;
-    console.log(gameBoard.getBoard());
+    const gameEnd = checkForWin();
+    if (gameEnd) {
+      isRoundEnd = true;
+      console.log(gameEnd);
+    }
+  };
+
+  const checkForWin = () => {
+    const board = gameBoard.getBoard();
+
+    // Check horizontal.
+    for (let i = 0; i < board.length; i += 3) {
+      if (
+        board[i] === board[i + 1] &&
+        board[i] === board[i + 2] &&
+        board[i] !== undefined
+      ) {
+        return [i, i + 1, i + 2];
+      }
+    }
+
+    // Check vertical.
+    for (let i = 0; i < board.length / 3; i++) {
+      if (
+        board[i] === board[i + 3] &&
+        board[i] === board[i + 6] &&
+        board[i] !== undefined
+      ) {
+        return [i, i + 3, i + 6];
+      }
+    }
+
+    // Check diagonals.
+    if (
+      board[0] === board[4] &&
+      board[0] === board[8] &&
+      board[0] !== undefined
+    ) {
+      return [0, 4, 8];
+    } else if (
+      board[2] === board[4] &&
+      board[2] === board[6] &&
+      board[2] !== undefined
+    ) {
+      return [2, 4, 6];
+    } else if (currentMove === board.length) {
+      return "draw";
+    }
+
+    return false;
   };
 
   const getCurrentRound = () => {
@@ -47,9 +97,14 @@ const gameController = (() => {
     return currentPlayerSymbol;
   };
 
+  const getRoundEnd = () => {
+    return isRoundEnd;
+  };
+
   return {
     getCurrentRound,
     getCurrentPlayerSymbol,
+    getRoundEnd,
     playMove,
   };
 })();
