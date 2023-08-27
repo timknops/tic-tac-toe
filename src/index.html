@@ -23,41 +23,54 @@
   <body
     class="bg-gray-900 text-gray-200 w-screen h-screen flex flex-col items-center justify-center"
   >
-    <h1 class="text-6xl text-center font-extrabold">TicTacToe</h1>
+    <h1 class="text-6xl text-center font-extrabold">
+      <span class="text-emerald-500">Tic</span>-Tac-<span class="text-amber-500"
+        >Toe</span
+      >
+    </h1>
     <p
       class="font-medium text-2xl mt-5 text-gray-400 bg-gray-700 px-4 py-2 rounded-lg"
     >
-      <i class="fa-solid fa-o mr-2 text-amber-500"></i> TURN
+      <i class="turn-icon fa-solid fa-x mr-2 text-emerald-500"></i> TURN
     </p>
     <div
       class="board bg-gray-700 grid grid-cols-3 grid-rows-3 mt-5 rounded-lg shadow-2xl shadow-gray-800 gap-3 p-3"
     >
       <div
         class="board-field bg-gray-600 rounded-lg flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+        data-position="1"
       ></div>
       <div
         class="board-field bg-gray-600 rounded-lg flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+        data-position="2"
       ></div>
       <div
         class="board-field bg-gray-600 rounded-lg flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+        data-position="3"
       ></div>
       <div
         class="board-field bg-gray-600 rounded-lg flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+        data-position="4"
       ></div>
       <div
         class="board-field bg-gray-600 rounded-lg flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+        data-position="5"
       ></div>
       <div
         class="board-field bg-gray-600 rounded-lg flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+        data-position="6"
       ></div>
       <div
         class="board-field bg-gray-600 rounded-lg flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+        data-position="7"
       ></div>
       <div
         class="board-field bg-gray-600 rounded-lg flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+        data-position="8"
       ></div>
       <div
         class="board-field bg-gray-600 rounded-lg flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+        data-position="9"
       ></div>
     </div>
   </body>

@@ -1,7 +1,15 @@
 const gameBoard = (() => {
   const board = new Array(9);
 
-  return { board };
+  const getBoard = () => {
+    return board;
+  };
+
+  const setField = (index, symbol) => {
+    board[index] = symbol;
+  };
+
+  return { setField, getBoard };
 })();
 
 const Player = (symbol) => {
@@ -16,15 +24,19 @@ const gameController = (() => {
   const player1 = Player("X");
   const player2 = Player("O");
   let currentRound = 1;
+  let currentMove = 1;
   let currentPlayerSymbol = player1.getSymbol();
 
-  const playRound = () => {
+  const playMove = (position) => {
+    gameBoard.setField(position - 1, currentPlayerSymbol);
+
     currentPlayerSymbol =
       currentPlayerSymbol === player1.getSymbol()
         ? player2.getSymbol()
         : player1.getSymbol();
 
-    currentRound++;
+    currentMove++;
+    console.log(gameBoard.getBoard());
   };
 
   const getCurrentRound = () => {
@@ -38,7 +50,7 @@ const gameController = (() => {
   return {
     getCurrentRound,
     getCurrentPlayerSymbol,
-    playRound,
+    playMove,
   };
 })();
 
@@ -49,13 +61,14 @@ const displayController = (() => {
   boardFields.forEach((field) => {
     field.addEventListener("click", () => {
       if (!field.hasChildNodes()) {
-        field.appendChild(createPlayerIcon());
-        gameController.playRound();
+        updateTurn();
+        field.appendChild(createCurrentPlayerIcon());
+        gameController.playMove(field.getAttribute("data-position"));
       }
     });
   });
 
-  const createPlayerIcon = () => {
+  const createCurrentPlayerIcon = () => {
     const node = document.createElement("i");
     node.classList.add(
       "fa-solid",
@@ -67,5 +80,17 @@ const displayController = (() => {
     );
 
     return node;
+  };
+
+  const updateTurn = () => {
+    const turnIcon = document.querySelector(".turn-icon");
+
+    if (gameController.getCurrentPlayerSymbol() === "X") {
+      turnIcon.classList.remove("fa-x", playerColors[0]);
+      turnIcon.classList.add("fa-o", playerColors[1]);
+    } else {
+      turnIcon.classList.remove("fa-o", playerColors[1]);
+      turnIcon.classList.add("fa-x", playerColors[0]);
+    }
   };
 })();
