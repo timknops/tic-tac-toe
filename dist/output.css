@@ -586,6 +586,10 @@ video {
   gap: 0.75rem;
 }
 
+.rounded-2xl {
+  border-radius: 1rem;
+}
+
 .rounded-lg {
   border-radius: 0.5rem;
 }
@@ -675,6 +679,21 @@ video {
 .board {
   width: 600px;
   height: 600px;
+}
+
+.board-field > i {
+  transform: scale(1);
+  animation: zoomin 0.5s;
+}
+
+@keyframes zoomin {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 .hover\:bg-gray-500:hover {
