@@ -1,5 +1,5 @@
 const gameBoard = (() => {
-  const board = new Array(9);
+  let board = new Array(9);
 
   const getBoard = () => {
     return board;
@@ -9,7 +9,11 @@ const gameBoard = (() => {
     board[index] = symbol;
   };
 
-  return { setField, getBoard };
+  const resetBoard = () => {
+    board = new Array(9);
+  };
+
+  return { setField, getBoard, resetBoard };
 })();
 
 const Player = (symbol) => {
@@ -32,22 +36,31 @@ const gameController = (() => {
     gameBoard.setField(position - 1, currentPlayerSymbol);
     currentMove++;
 
-    currentPlayerSymbol =
-      currentPlayerSymbol === player1.getSymbol()
-        ? player2.getSymbol()
-        : player1.getSymbol();
-
     const gameEnd = checkForWin();
     if (gameEnd) {
       isRoundEnd = true;
-      console.log(gameEnd);
+      currentRound++;
+
+      if (gameEnd === "draw") {
+        currentPlayerSymbol = "draw";
+      }
+
+      setTimeout(() => {
+        displayController.toggleWinningModal(currentPlayerSymbol);
+      }, 1000);
+    } else {
+      displayController.updateTurn();
+      currentPlayerSymbol =
+        currentPlayerSymbol === player1.getSymbol()
+          ? player2.getSymbol()
+          : player1.getSymbol();
     }
   };
 
   const checkForWin = () => {
     const board = gameBoard.getBoard();
 
-    // Check horizontal.
+    // Check horizontals.
     for (let i = 0; i < board.length; i += 3) {
       if (
         board[i] === board[i + 1] &&
@@ -58,7 +71,7 @@ const gameController = (() => {
       }
     }
 
-    // Check vertical.
+    // Check verticals.
     for (let i = 0; i < board.length / 3; i++) {
       if (
         board[i] === board[i + 3] &&
@@ -89,6 +102,13 @@ const gameController = (() => {
     return false;
   };
 
+  const resetGameValues = () => {
+    currentRound = 1;
+    currentMove = 0;
+    currentPlayerSymbol = player1.getSymbol();
+    isRoundEnd = false;
+  };
+
   const getCurrentRound = () => {
     return currentRound;
   };
@@ -106,17 +126,19 @@ const gameController = (() => {
     getCurrentPlayerSymbol,
     getRoundEnd,
     playMove,
+    resetGameValues,
   };
 })();
 
 const displayController = (() => {
   const boardFields = document.querySelectorAll(".board-field");
   const playerColors = ["text-emerald-500", "text-amber-500"];
+  const modal = document.querySelector(".winning-modal");
+  const body = document.querySelector("body");
 
   boardFields.forEach((field) => {
     field.addEventListener("click", () => {
       if (!field.hasChildNodes()) {
-        updateTurn();
         field.appendChild(createCurrentPlayerIcon());
         gameController.playMove(field.getAttribute("data-position"));
       }
@@ -148,4 +170,66 @@ const displayController = (() => {
       turnIcon.classList.add("fa-x", playerColors[0]);
     }
   };
+
+  const toggleWinningModal = (symbol) => {
+    const winningMessage = document.querySelector(".winning-message");
+
+    winningMessage.innerHTML = "";
+
+    if (symbol === "draw") {
+      winningMessage.innerHTML = "It's a Draw!";
+    } else {
+      const node = document.createElement("i");
+
+      node.classList.add(
+        "fa-solid",
+        `fa-${gameController.getCurrentPlayerSymbol().toLowerCase()}`,
+        gameController.getCurrentPlayerSymbol() === "X"
+          ? playerColors[0]
+          : playerColors[1],
+        "fa-sm",
+        "mr-2"
+      );
+
+      winningMessage.appendChild(node);
+      winningMessage.append(" Won!");
+    }
+
+    body.classList.toggle("overflow-y-hidden");
+    modal.classList.toggle("hidden");
+  };
+
+  const handleModalButtons = () => {
+    const backToMenuBtn = document.querySelector(".back-menu-btn");
+    const nextRoundBtn = document.querySelector(".next-round-btn");
+
+    backToMenuBtn.addEventListener("click", () => {
+      console.log("BACK TO MENU");
+    });
+
+    nextRoundBtn.addEventListener("click", async () => {
+      gameBoard.resetBoard();
+      gameController.resetGameValues();
+      resetFields();
+
+      body.classList.add("overflow-y-hidden");
+      modal.classList.add("slide-down");
+
+      setTimeout(() => {
+        toggleWinningModal();
+        modal.classList.remove("slide-down");
+        body.classList.remove("overflow-y-hidden");
+      }, 800);
+    });
+  };
+
+  const resetFields = () => {
+    boardFields.forEach((field) => {
+      field.innerHTML = "";
+    });
+  };
+
+  handleModalButtons();
+
+  return { toggleWinningModal, updateTurn };
 })();
