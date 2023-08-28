@@ -7,5 +7,6 @@ module.exports = {
       sans: ["Lato", "sans-serif"],
     },
   },
+  purge: ["./src/*.html", "./src/js/*.js"],
   plugins: [],
 };
