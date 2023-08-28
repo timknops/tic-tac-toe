@@ -56,3 +56,10 @@
     opacity: 0;
   }
 }
+
+@media (max-height: 800px) {
+  .board {
+    width: 550px;
+    height: 550px;
+  }
+}

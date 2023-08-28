@@ -45,8 +45,12 @@ const gameController = (() => {
         currentPlayerSymbol = "draw";
       }
 
+      displayController.displayWinningRow(gameEnd);
       setTimeout(() => {
         displayController.toggleWinningModal(currentPlayerSymbol);
+        setTimeout(() => {
+          displayController.toggleOverlay();
+        }, 800);
       }, 1000);
     } else {
       displayController.updateTurn();
@@ -132,9 +136,15 @@ const gameController = (() => {
 
 const displayController = (() => {
   const boardFields = document.querySelectorAll(".board-field");
-  const playerColors = ["text-emerald-500", "text-amber-500"];
+  const playerColors = [
+    "text-emerald-500",
+    "text-amber-500",
+    "bg-emerald-500",
+    "bg-amber-500",
+  ];
   const modal = document.querySelector(".winning-modal");
   const body = document.querySelector("body");
+  const overlay = document.querySelector(".bg-overlay");
 
   boardFields.forEach((field) => {
     field.addEventListener("click", () => {
@@ -223,13 +233,66 @@ const displayController = (() => {
     });
   };
 
+  const displayWinningRow = (fieldIndexes) => {
+    if (fieldIndexes === "draw") {
+      toggleOverlay();
+      return;
+    }
+
+    let fields = [];
+    fieldIndexes.forEach((index) => {
+      fields.push(
+        document.querySelector(`.board-field[data-position="${++index}"]`)
+      );
+    });
+
+    fields.forEach((field) => {
+      field.classList.remove("bg-gray-600");
+      field.classList.add(
+        gameController.getCurrentPlayerSymbol() === "X"
+          ? playerColors[2]
+          : playerColors[3],
+        "transition-all",
+        "duration-700"
+      );
+
+      field.firstElementChild.classList.remove(
+        gameController.getCurrentPlayerSymbol() === "X"
+          ? playerColors[0]
+          : playerColors[1]
+      );
+      field.firstElementChild.classList.add(
+        "text-gray-600",
+        "transition-colors"
+      );
+    });
+
+    toggleOverlay();
+  };
+
   const resetFields = () => {
     boardFields.forEach((field) => {
       field.innerHTML = "";
+      field.classList.add("bg-gray-600");
+      field.classList.remove(
+        playerColors[2],
+        playerColors[3],
+        "transition-colors",
+        "duration-700"
+      );
     });
+  };
+
+  const toggleOverlay = () => {
+    overlay.classList.toggle("hidden");
   };
 
   handleModalButtons();
 
-  return { toggleWinningModal, updateTurn };
+  return {
+    toggleWinningModal,
+    updateTurn,
+    displayWinningRow,
+    toggleOverlay,
+  };
 })();
