@@ -16,19 +16,36 @@ const gameBoard = (() => {
   return { setField, getBoard, resetBoard };
 })();
 
-const Player = (symbol) => {
+const Player = (symbol, points) => {
   const getSymbol = () => {
     return symbol;
   };
 
-  return { getSymbol };
+  const getPoints = () => {
+    return points;
+  };
+
+  const resetPoints = () => {
+    points = 0;
+  };
+
+  const addPoint = () => {
+    points++;
+  };
+
+  return {
+    getSymbol,
+    getPoints,
+    addPoint,
+    resetPoints,
+  };
 };
 
 const gameController = (() => {
-  const player1 = Player("X");
-  const player2 = Player("O");
-  let currentRound = 1;
+  const player1 = Player("X", 0);
+  const player2 = Player("O", 0);
   let currentMove = 0;
+  let drawPoints = 0;
   let currentPlayerSymbol = player1.getSymbol();
   let isRoundEnd = false;
 
@@ -36,16 +53,25 @@ const gameController = (() => {
     gameBoard.setField(position - 1, currentPlayerSymbol);
     currentMove++;
 
-    const gameEnd = checkForWin();
-    if (gameEnd) {
+    const roundEnd = checkForWin();
+    if (roundEnd) {
       isRoundEnd = true;
-      currentRound++;
 
-      if (gameEnd === "draw") {
+      if (roundEnd === "draw") {
         currentPlayerSymbol = "draw";
       }
 
-      displayController.displayWinningRow(gameEnd);
+      displayController.displayWinningRow(roundEnd);
+      if (currentPlayerSymbol === player1.getSymbol()) {
+        player1.addPoint();
+      } else if (currentPlayerSymbol === player2.getSymbol()) {
+        player2.addPoint();
+      } else {
+        drawPoints++;
+      }
+
+      displayController.updatePoints();
+
       setTimeout(() => {
         displayController.toggleWinningModal(currentPlayerSymbol);
         setTimeout(() => {
@@ -107,14 +133,15 @@ const gameController = (() => {
   };
 
   const resetGameValues = () => {
-    currentRound = 1;
     currentMove = 0;
     currentPlayerSymbol = player1.getSymbol();
     isRoundEnd = false;
   };
 
-  const getCurrentRound = () => {
-    return currentRound;
+  const resetScoreBoard = () => {
+    player1.resetPoints();
+    player2.resetPoints();
+    drawPoints = 0;
   };
 
   const getCurrentPlayerSymbol = () => {
@@ -125,12 +152,22 @@ const gameController = (() => {
     return isRoundEnd;
   };
 
+  const getDrawPoints = () => {
+    return drawPoints;
+  };
+
+  const getPlayer = (symbol) => {
+    return symbol === player1.getSymbol() ? player1 : player2;
+  };
+
   return {
-    getCurrentRound,
     getCurrentPlayerSymbol,
     getRoundEnd,
     playMove,
     resetGameValues,
+    getDrawPoints,
+    getPlayer,
+    resetScoreBoard,
   };
 })();
 
@@ -210,14 +247,28 @@ const displayController = (() => {
   };
 
   const handleModalButtons = () => {
-    const backToMenuBtn = document.querySelector(".back-menu-btn");
+    const restartGameBtn = document.querySelector(".restart-game-btn");
     const nextRoundBtn = document.querySelector(".next-round-btn");
 
-    backToMenuBtn.addEventListener("click", () => {
-      console.log("BACK TO MENU");
+    restartGameBtn.addEventListener("click", () => {
+      gameController.resetScoreBoard();
+      updatePoints();
+
+      gameBoard.resetBoard();
+      gameController.resetGameValues();
+      resetFields();
+
+      body.classList.add("overflow-y-hidden");
+      modal.classList.add("slide-down");
+
+      setTimeout(() => {
+        toggleWinningModal();
+        modal.classList.remove("slide-down");
+        body.classList.remove("overflow-y-hidden");
+      }, 800);
     });
 
-    nextRoundBtn.addEventListener("click", async () => {
+    nextRoundBtn.addEventListener("click", () => {
       gameBoard.resetBoard();
       gameController.resetGameValues();
       resetFields();
@@ -287,6 +338,16 @@ const displayController = (() => {
     overlay.classList.toggle("hidden");
   };
 
+  const updatePoints = () => {
+    const xPoints = document.querySelector(".player-x-points");
+    const oPoints = document.querySelector(".player-o-points");
+    const drawPoints = document.querySelector(".draw-points");
+
+    xPoints.innerHTML = gameController.getPlayer("X").getPoints();
+    oPoints.innerHTML = gameController.getPlayer("O").getPoints();
+    drawPoints.innerHTML = gameController.getDrawPoints();
+  };
+
   handleModalButtons();
 
   return {
@@ -294,5 +355,6 @@ const displayController = (() => {
     updateTurn,
     displayWinningRow,
     toggleOverlay,
+    updatePoints,
   };
 })();
