@@ -34,45 +34,68 @@
       <i class="turn-icon fa-solid fa-x mr-2 text-emerald-500 w-6"></i>
       <span class="font-bold">TURN</span>
     </p>
-    <div
-      class="board bg-gray-700 grid grid-cols-3 grid-rows-3 mt-5 rounded-2xl shadow-2xl shadow-gray-800 gap-3 p-3"
-    >
+    <div class="board-scoreboard-container mt-5 w-screen">
       <div
-        class="board-field bg-gray-600 rounded-2xl flex items-center justify-center hover:bg-gray-500 cursor-pointer"
-        data-position="1"
-      ></div>
+        class="scoreboard bg-gray-700 rounded-2xl p-6 justify-self-end h-44 w-48"
+      >
+        <h3 class="text-xl font-extrabold text-center mb-2">ScoreBoard</h3>
+        <div class="flex justify-between mb-1 text-gray-400">
+          <p class="text-lg font-bold">
+            Player <i class="fa-solid fa-x text-emerald-500 fa-sm ml-1"></i>
+          </p>
+          <p class="player-x-points text-lg font-bold">0</p>
+        </div>
+        <div class="flex justify-between gap-4 mb-1 text-gray-400">
+          <p class="text-lg font-bold">
+            Player <i class="fa-solid fa-o text-amber-500 fa-sm ml-1"></i>
+          </p>
+          <p class="player-o-points text-lg font-bold">0</p>
+        </div>
+        <div class="flex justify-between mb-1 text-gray-400">
+          <p class="text-lg font-bold">Draw</p>
+          <p class="draw-points text-lg font-bold">0</p>
+        </div>
+      </div>
       <div
-        class="board-field bg-gray-600 rounded-2xl flex items-center justify-center hover:bg-gray-500 cursor-pointer"
-        data-position="2"
-      ></div>
-      <div
-        class="board-field bg-gray-600 rounded-2xl flex items-center justify-center hover:bg-gray-500 cursor-pointer"
-        data-position="3"
-      ></div>
-      <div
-        class="board-field bg-gray-600 rounded-2xl flex items-center justify-center hover:bg-gray-500 cursor-pointer"
-        data-position="4"
-      ></div>
-      <div
-        class="board-field bg-gray-600 rounded-2xl flex items-center justify-center hover:bg-gray-500 cursor-pointer"
-        data-position="5"
-      ></div>
-      <div
-        class="board-field bg-gray-600 rounded-2xl flex items-center justify-center hover:bg-gray-500 cursor-pointer"
-        data-position="6"
-      ></div>
-      <div
-        class="board-field bg-gray-600 rounded-2xl flex items-center justify-center hover:bg-gray-500 cursor-pointer"
-        data-position="7"
-      ></div>
-      <div
-        class="board-field bg-gray-600 rounded-2xl flex items-center justify-center hover:bg-gray-500 cursor-pointer"
-        data-position="8"
-      ></div>
-      <div
-        class="board-field bg-gray-600 rounded-2xl flex items-center justify-center hover:bg-gray-500 cursor-pointer"
-        data-position="9"
-      ></div>
+        class="board bg-gray-700 grid grid-cols-3 grid-rows-3 rounded-2xl shadow-2xl shadow-gray-800 gap-3 p-3 justify-self-center"
+      >
+        <div
+          class="board-field bg-gray-600 rounded-2xl flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+          data-position="1"
+        ></div>
+        <div
+          class="board-field bg-gray-600 rounded-2xl flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+          data-position="2"
+        ></div>
+        <div
+          class="board-field bg-gray-600 rounded-2xl flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+          data-position="3"
+        ></div>
+        <div
+          class="board-field bg-gray-600 rounded-2xl flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+          data-position="4"
+        ></div>
+        <div
+          class="board-field bg-gray-600 rounded-2xl flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+          data-position="5"
+        ></div>
+        <div
+          class="board-field bg-gray-600 rounded-2xl flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+          data-position="6"
+        ></div>
+        <div
+          class="board-field bg-gray-600 rounded-2xl flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+          data-position="7"
+        ></div>
+        <div
+          class="board-field bg-gray-600 rounded-2xl flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+          data-position="8"
+        ></div>
+        <div
+          class="board-field bg-gray-600 rounded-2xl flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+          data-position="9"
+        ></div>
+      </div>
     </div>
   </body>
 </html>

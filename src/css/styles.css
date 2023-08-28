@@ -21,6 +21,12 @@
   animation: slidedown 0.8s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
+.board-scoreboard-container {
+  display: grid;
+  grid-template-columns: 1fr 600px 1fr;
+  gap: 1.25rem;
+}
+
 @keyframes zoomin {
   0% {
     transform: scale(0);
